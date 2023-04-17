@@ -1,5 +1,19 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
+
+//criando um Middleware - Momento de execução antes do carregamento da rota
+app.use((req, res, next)=>{
+    // permitindo que o endereço indicado pode acessar esta API
+    //http://localhost:3000 é o endereço da aplicação REACT
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+    // permitindo que os seguintes métodos poderam serem usados pela aplicação externa
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    // carregar o cors 
+    app.use(cors())
+    // continuar execução
+    next()
+})
 
 //mongodb
 const mongoose = require('mongoose');
